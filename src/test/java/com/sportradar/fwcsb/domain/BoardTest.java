@@ -1,5 +1,8 @@
 package com.sportradar.fwcsb.domain;
 
+import com.sportradar.fwcsb.domain.game.team.AwayTeam;
+import com.sportradar.fwcsb.domain.game.team.HomeTeam;
+import com.sportradar.fwcsb.domain.game.team.Team;
 import com.sportradar.fwcsb.service.Service;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +23,7 @@ class BoardTest {
     void testStartGame() {
         // given
         Team home = new HomeTeam("Mexico");
-        Team away = new HomeTeam("Canada");
+        Team away = new AwayTeam("Canada");
         // when
         board.startGame();
         // then
