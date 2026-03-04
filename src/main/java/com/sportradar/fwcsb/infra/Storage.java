@@ -9,4 +9,7 @@ public class Storage {
         return false;
     }
 
+    public boolean removeFromScoreboard(final Game game) {
+        return false;
+    }
 }

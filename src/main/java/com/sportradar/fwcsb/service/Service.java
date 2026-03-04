@@ -26,7 +26,7 @@ public class Service {
     }
 
     public boolean finishGame(final Game game) {
-        return false;
+        return storage.removeFromScoreboard(game);
     }
 
     public boolean updateScore(final Game game, final Match match) {
