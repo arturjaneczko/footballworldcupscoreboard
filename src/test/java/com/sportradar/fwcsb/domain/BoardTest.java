@@ -25,21 +25,27 @@ class BoardTest {
         Team home = new HomeTeam("Mexico");
         Team away = new AwayTeam("Canada");
         // when
-        board.startGame();
+        board.startGame(home, away);
         // then
         Mockito.verify(service).startGame();
     }
 
     @Test
     void testFinishGame() {
+        // given
+        Team home = new HomeTeam("Mexico");
+        Team away = new AwayTeam("Canada");
         // when
-        board.finishGame();
+        board.finishGame(home, away);
         // then
         Mockito.verify(service).finishGame();
     }
 
     @Test
     void testUpdateScore() {
+        // given
+        Team home = new HomeTeam("Mexico");
+        Team away = new AwayTeam("Canada");
         // when
         board.updateScore();
         // then
