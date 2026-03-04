@@ -27,4 +27,8 @@ public class Service {
     public Optional<Game> findGame(final Team home, final Team away) {
         return null;
     }
+
+    public Match getMatch(final Game game) {
+        return null;
+    }
 }
