@@ -1,6 +1,7 @@
 package com.sportradar.fwcsb.domain;
 
 import com.sportradar.fwcsb.domain.game.Game;
+import com.sportradar.fwcsb.domain.game.TeamScore;
 import com.sportradar.fwcsb.domain.game.team.AwayTeam;
 import com.sportradar.fwcsb.domain.game.team.HomeTeam;
 import com.sportradar.fwcsb.domain.game.team.Team;
@@ -59,6 +60,8 @@ class BoardTest {
         Team away = new AwayTeam("Canada");
         TeamScore homeTeamScore = new TeamScore(home, 2);
         TeamScore awayTeamScore = new TeamScore(away, 1);
+        Game game = new Game(home, away);
+        Match match = new Match(new TeamScore(home, 0), new TeamScore(away, 0));
         // when
         board.updateScore();
         // then
