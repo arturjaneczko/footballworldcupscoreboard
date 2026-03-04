@@ -18,6 +18,9 @@ class BoardTest {
 
     @Test
     void testStartGame() {
+        // given
+        Team home = new HomeTeam("Mexico");
+        Team away = new HomeTeam("Canada");
         // when
         board.startGame();
         // then
