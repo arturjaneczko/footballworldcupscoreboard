@@ -17,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
@@ -94,6 +95,8 @@ class ServiceTest {
         Summary summaryC = matchC.getSummary();
         Summary summaryD = matchD.getSummary();
         Summary summaryE = matchE.getSummary();
+
+        Mockito.when(storage.getScoreboard()).thenReturn(Arrays.asList(matchA, matchB, matchC, matchD, matchE));
         // when
         List<Summary> result = service.totalSummary();
         // then
