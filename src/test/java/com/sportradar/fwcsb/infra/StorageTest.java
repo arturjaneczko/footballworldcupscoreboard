@@ -20,8 +20,9 @@ class StorageTest {
         Game game = new Game(mexico, canada);
         Match match = new Match(new TeamScore(mexico, 1), new TeamScore(canada, 1));
         // when
-        storage.updateScoreboard(game, match);
+        boolean result = storage.updateScoreboard(game, match);
         // then
-        Assertions.assertThat(storage.getScoreboard());
+        Assertions.assertThat(result).isTrue();
+        Assertions.assertThat(storage.getScoreboard()).containsExactly(match);
     }
 }
