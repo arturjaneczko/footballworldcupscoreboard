@@ -1,5 +1,6 @@
 package com.sportradar.fwcsb.domain;
 
+import com.sportradar.fwcsb.domain.game.Game;
 import com.sportradar.fwcsb.domain.game.team.AwayTeam;
 import com.sportradar.fwcsb.domain.game.team.HomeTeam;
 import com.sportradar.fwcsb.domain.game.team.Team;

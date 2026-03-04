@@ -1,8 +1,10 @@
 package com.sportradar.fwcsb.service;
 
+import com.sportradar.fwcsb.domain.game.Game;
+
 public class Service {
 
-    public boolean startGame() {
+    public boolean startGame(final Game game) {
         return false;
     }
 
