@@ -24,4 +24,28 @@ class BoardTest {
         Mockito.verify(service).startGame();
     }
 
+    @Test
+    void testFinishGame() {
+        // when
+        board.finishGame();
+        // then
+        Mockito.verify(service).finishGame();
+    }
+
+    @Test
+    void testUpdateScore() {
+        // when
+        board.updateScore();
+        // then
+        Mockito.verify(service).updateScore();
+    }
+
+    @Test
+    void testTotalSummary() {
+        // when
+        board.totalSummary();
+        // then
+        Mockito.verify(service).totalSummary();
+    }
+
 }

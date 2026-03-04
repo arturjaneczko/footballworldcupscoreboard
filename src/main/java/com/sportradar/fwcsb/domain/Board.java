@@ -14,4 +14,15 @@ public class Board {
         return service.startGame();
     }
 
+    public boolean finishGame() {
+        return service.finishGame();
+    }
+
+    public boolean updateScore() {
+        return service.updateScore();
+    }
+
+    public boolean totalSummary() {
+        return service.totalSummary();
+    }
 }
