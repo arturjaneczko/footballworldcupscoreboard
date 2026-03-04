@@ -1,5 +1,6 @@
 package com.sportradar.fwcsb.domain;
 
+import com.sportradar.fwcsb.domain.game.team.Team;
 import com.sportradar.fwcsb.service.Service;
 
 public class Board {
@@ -10,11 +11,11 @@ public class Board {
         this.service = service;
     }
 
-    public boolean startGame() {
+    public boolean startGame(final Team home, final Team away) {
         return service.startGame();
     }
 
-    public boolean finishGame() {
+    public boolean finishGame(final Team home, final Team away) {
         return service.finishGame();
     }
 
