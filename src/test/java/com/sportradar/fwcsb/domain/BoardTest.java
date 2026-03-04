@@ -57,6 +57,8 @@ class BoardTest {
         // given
         Team home = new HomeTeam("Mexico");
         Team away = new AwayTeam("Canada");
+        TeamScore homeTeamScore = new TeamScore(home, 2);
+        TeamScore awayTeamScore = new TeamScore(away, 1);
         // when
         board.updateScore();
         // then
