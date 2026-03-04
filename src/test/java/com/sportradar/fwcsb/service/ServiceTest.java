@@ -1,12 +1,17 @@
 package com.sportradar.fwcsb.service;
 
 import com.sportradar.fwcsb.domain.game.Game;
+import com.sportradar.fwcsb.domain.game.TeamScore;
 import com.sportradar.fwcsb.domain.game.match.Match;
 import com.sportradar.fwcsb.domain.game.team.HomeTeam;
 import com.sportradar.fwcsb.domain.game.team.Team;
+import com.sportradar.fwcsb.infra.Storage;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -15,6 +20,8 @@ class ServiceTest {
 
     @InjectMocks
     private Service service;
+    @Mock
+    private Storage storage;
 
     @Test
     void testStartGame() {
@@ -25,6 +32,10 @@ class ServiceTest {
         // when
         service.startGame(game);
         // then
-        Mockito.verify(storage).updateScoreboard(Mockito.eq(game), Mockito.any(Match.class));
+        ArgumentCaptor<Match> captor = ArgumentCaptor.forClass(Match.class);
+        Mockito.verify(storage).updateScoreboard(Mockito.eq(game), captor.capture());
+        Match match = captor.getValue();
+        Assertions.assertThat(match).extracting(Match::getHome).extracting(TeamScore::score).isEqualTo(0);
+        Assertions.assertThat(match).extracting(Match::getAway).extracting(TeamScore::score).isEqualTo(0);
     }
 }
