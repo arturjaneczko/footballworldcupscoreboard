@@ -13,7 +13,7 @@ Layers:
 
 Entities:
 
-`Board` - domain business logic: flow, rules, exceptions (`Game`, `Match`, `Team`, `TeamScore` - domain entities)
+`Board` - domain business logic: flow, rules, exceptions (`Game`, `Match`, `Team`, `TeamScore`, `Summary` - domain entities)
 
 `Service` - **Board** delegate to **Service** valid (form business point of view) data, communicates with infrastructure
 

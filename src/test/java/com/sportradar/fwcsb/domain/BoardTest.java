@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
@@ -75,6 +76,8 @@ class BoardTest {
 
     @Test
     void testTotalSummary() {
+        // given
+        List<Summary> summary = new ArrayList<>();
         // when
         board.totalSummary();
         // then
