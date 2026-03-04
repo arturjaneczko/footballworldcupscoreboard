@@ -1,6 +1,7 @@
 package com.sportradar.fwcsb.domain;
 
 import com.sportradar.fwcsb.domain.game.Game;
+import com.sportradar.fwcsb.domain.game.TeamScore;
 import com.sportradar.fwcsb.domain.game.team.Team;
 import com.sportradar.fwcsb.service.Service;
 
@@ -23,8 +24,8 @@ public class Board {
         return service.finishGame(game.orElseThrow());
     }
 
-    public boolean updateScore() {
-        return service.updateScore();
+    public boolean updateScore(final TeamScore home, final TeamScore away) {
+        return service.updateScore(null, null);
     }
 
     public boolean totalSummary() {

@@ -1,6 +1,7 @@
 package com.sportradar.fwcsb.service;
 
 import com.sportradar.fwcsb.domain.game.Game;
+import com.sportradar.fwcsb.domain.game.Match;
 import com.sportradar.fwcsb.domain.game.team.Team;
 
 import java.util.Optional;
@@ -15,7 +16,7 @@ public class Service {
         return false;
     }
 
-    public boolean updateScore() {
+    public boolean updateScore(final Game game, final Match match) {
         return false;
     }
 

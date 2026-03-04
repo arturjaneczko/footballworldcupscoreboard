@@ -1,6 +1,7 @@
 package com.sportradar.fwcsb.domain;
 
 import com.sportradar.fwcsb.domain.game.Game;
+import com.sportradar.fwcsb.domain.game.Match;
 import com.sportradar.fwcsb.domain.game.TeamScore;
 import com.sportradar.fwcsb.domain.game.team.AwayTeam;
 import com.sportradar.fwcsb.domain.game.team.HomeTeam;
@@ -61,11 +62,15 @@ class BoardTest {
         TeamScore homeTeamScore = new TeamScore(home, 2);
         TeamScore awayTeamScore = new TeamScore(away, 1);
         Game game = new Game(home, away);
+        Mockito.when(service.findGame(home, away)).thenReturn(Optional.of(game));
         Match match = new Match(new TeamScore(home, 0), new TeamScore(away, 0));
+        Mockito.when(service.getMatch(game)).thenReturn(match);
         // when
-        board.updateScore();
+        board.updateScore(homeTeamScore, awayTeamScore);
         // then
-        Mockito.verify(service).updateScore();
+        Assertions.assertThat(match.getHome().score()).isEqualTo(2);
+        Assertions.assertThat(match.getAway().score()).isEqualTo(1);
+        Mockito.verify(service).updateScore(game, match);
     }
 
     @Test
