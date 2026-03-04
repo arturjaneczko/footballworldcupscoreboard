@@ -10,6 +10,11 @@ public class Match {
         this.away = away;
     }
 
+    public void updateScore(final TeamScore home, final TeamScore away) {
+        this.home = home;
+        this.away = away;
+    }
+
     public TeamScore getHome() {
         return home;
     }

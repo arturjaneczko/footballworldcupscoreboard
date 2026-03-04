@@ -1,6 +1,7 @@
 package com.sportradar.fwcsb.domain;
 
 import com.sportradar.fwcsb.domain.game.Game;
+import com.sportradar.fwcsb.domain.game.Match;
 import com.sportradar.fwcsb.domain.game.TeamScore;
 import com.sportradar.fwcsb.domain.game.team.Team;
 import com.sportradar.fwcsb.service.Service;
@@ -25,7 +26,12 @@ public class Board {
     }
 
     public boolean updateScore(final TeamScore home, final TeamScore away) {
-        return service.updateScore(null, null);
+        Optional<Game> game = service.findGame(home.team(), away.team());
+        Optional<Match> candidate = game.map(service::getMatch);
+
+        Match match = candidate.orElseThrow();
+        match.updateScore(home, away);
+        return service.updateScore(game.orElseThrow(), match);
     }
 
     public boolean totalSummary() {
