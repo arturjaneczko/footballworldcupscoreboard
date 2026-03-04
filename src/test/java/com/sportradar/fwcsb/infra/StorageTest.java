@@ -39,6 +39,7 @@ class StorageTest {
         // when
         boolean result = storage.removeFromScoreboard(game);
         // then
+        Assertions.assertThat(result).isTrue();
         Assertions.assertThat(storage.getScoreboard()).isEmpty();
     }
 

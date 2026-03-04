@@ -17,7 +17,7 @@ public class Storage {
     }
 
     public boolean removeFromScoreboard(final Game game) {
-        return false;
+        return Objects.nonNull(SCOREBOARD.remove(game));
     }
 
     public Collection<Match> getScoreboard() {
