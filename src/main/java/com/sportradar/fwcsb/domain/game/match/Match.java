@@ -1,4 +1,6 @@
-package com.sportradar.fwcsb.domain.game;
+package com.sportradar.fwcsb.domain.game.match;
+
+import com.sportradar.fwcsb.domain.game.TeamScore;
 
 public class Match {
 

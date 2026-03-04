@@ -1,8 +1,9 @@
 package com.sportradar.fwcsb.domain;
 
 import com.sportradar.fwcsb.domain.game.Game;
-import com.sportradar.fwcsb.domain.game.Match;
+import com.sportradar.fwcsb.domain.game.match.Match;
 import com.sportradar.fwcsb.domain.game.TeamScore;
+import com.sportradar.fwcsb.domain.game.match.Summary;
 import com.sportradar.fwcsb.domain.game.team.AwayTeam;
 import com.sportradar.fwcsb.domain.game.team.HomeTeam;
 import com.sportradar.fwcsb.domain.game.team.Team;
@@ -17,6 +18,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
@@ -78,10 +80,11 @@ class BoardTest {
     void testTotalSummary() {
         // given
         List<Summary> summary = new ArrayList<>();
+        Mockito.when(service.totalSummary()).thenReturn(summary);
         // when
-        board.totalSummary();
+        List<Summary> result = board.totalSummary();
         // then
-        Mockito.verify(service).totalSummary();
+        Assertions.assertThat(result).isEqualTo(summary);
     }
 
 }

@@ -1,11 +1,13 @@
 package com.sportradar.fwcsb.domain;
 
 import com.sportradar.fwcsb.domain.game.Game;
-import com.sportradar.fwcsb.domain.game.Match;
+import com.sportradar.fwcsb.domain.game.match.Match;
 import com.sportradar.fwcsb.domain.game.TeamScore;
+import com.sportradar.fwcsb.domain.game.match.Summary;
 import com.sportradar.fwcsb.domain.game.team.Team;
 import com.sportradar.fwcsb.service.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 public class Board {
@@ -34,7 +36,7 @@ public class Board {
         return service.updateScore(game.orElseThrow(), match);
     }
 
-    public boolean totalSummary() {
+    public List<Summary> totalSummary() {
         return service.totalSummary();
     }
 }
