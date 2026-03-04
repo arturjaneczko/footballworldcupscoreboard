@@ -55,7 +55,6 @@ class ServiceTest {
         Mockito.verify(storage).removeFromScoreboard(game);
     }
 
-
     @Test
     void testUpdateScore() {
         // given
