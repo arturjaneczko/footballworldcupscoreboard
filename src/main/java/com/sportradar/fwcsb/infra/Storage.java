@@ -6,18 +6,17 @@ import com.sportradar.fwcsb.domain.game.match.Match;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class Storage {
 
     private static final Map<Game, Match> SCOREBOARD = new LinkedHashMap<>();
 
-    public boolean updateScoreboard(final Game game, final Match match) {
-        return Objects.isNull(SCOREBOARD.put(game, match));
+    public Match updateScoreboard(final Game game, final Match match) {
+        return SCOREBOARD.put(game, match);
     }
 
-    public boolean removeFromScoreboard(final Game game) {
-        return Objects.nonNull(SCOREBOARD.remove(game));
+    public Match removeFromScoreboard(final Game game) {
+        return SCOREBOARD.remove(game);
     }
 
     public Collection<Match> getScoreboard() {

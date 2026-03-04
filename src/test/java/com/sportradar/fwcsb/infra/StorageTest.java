@@ -7,22 +7,26 @@ import com.sportradar.fwcsb.domain.game.team.AwayTeam;
 import com.sportradar.fwcsb.domain.game.team.HomeTeam;
 import com.sportradar.fwcsb.domain.game.team.Team;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 class StorageTest {
+
+    @AfterEach
+    void tearDown() {
+        new Storage().removeFromScoreboard(giveGame());
+    }
 
     @Test
     void updateScoreboardTest() {
         // given
         Storage storage = new Storage();
-        Team mexico = new HomeTeam("Mexico");
-        Team canada = new AwayTeam("Canada");
-        Game game = new Game(mexico, canada);
-        Match match = new Match(new TeamScore(mexico, 1), new TeamScore(canada, 1));
+        Game game = giveGame();
+        Match match = new Match(new TeamScore(game.getHomeTeam(), 1), new TeamScore(game.getAwayTeam(), 1));
         // when
-        boolean result = storage.updateScoreboard(game, match);
+        Match result = storage.updateScoreboard(game, match);
         // then
-        Assertions.assertThat(result).isTrue();
+        Assertions.assertThat(result).isNull();
         Assertions.assertThat(storage.getScoreboard()).containsExactly(match);
     }
 
@@ -30,17 +34,22 @@ class StorageTest {
     void removeFromScoreboardTest() {
         // given
         Storage storage = new Storage();
-        Team mexico = new HomeTeam("Mexico");
-        Team canada = new AwayTeam("Canada");
-        Game game = new Game(mexico, canada);
-        Match match = new Match(new TeamScore(mexico, 1), new TeamScore(canada, 1));
-        Assertions.assertThat(storage.updateScoreboard(game, match)).isTrue();
+        Game game = giveGame();
+        Match match = new Match(new TeamScore(game.getHomeTeam(), 1), new TeamScore(game.getAwayTeam(), 1));
+        Assertions.assertThat(storage.getScoreboard()).isEmpty();
+        Assertions.assertThat(storage.updateScoreboard(game, match)).isNull();
         Assertions.assertThat(storage.getScoreboard()).contains(match);
         // when
-        boolean result = storage.removeFromScoreboard(game);
+        Match result = storage.removeFromScoreboard(game);
         // then
-        Assertions.assertThat(result).isTrue();
+        Assertions.assertThat(result).isEqualTo(match);
         Assertions.assertThat(storage.getScoreboard()).isEmpty();
+    }
+
+    private static Game giveGame() {
+        Team mexico = new HomeTeam("Mexico");
+        Team canada = new AwayTeam("Canada");
+        return new Game(mexico, canada);
     }
 
 }

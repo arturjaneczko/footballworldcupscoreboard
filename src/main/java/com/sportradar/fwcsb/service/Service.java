@@ -9,6 +9,7 @@ import com.sportradar.fwcsb.infra.Storage;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -24,15 +25,15 @@ public class Service {
         TeamScore home = new TeamScore(game.getHomeTeam(), 0);
         TeamScore away = new TeamScore(game.getAwayTeam(), 0);
         Match match = new Match(home, away);
-        return storage.updateScoreboard(game, match);
+        return Objects.isNull(storage.updateScoreboard(game, match));
     }
 
     public boolean finishGame(final Game game) {
-        return storage.removeFromScoreboard(game);
+        return Objects.nonNull(storage.removeFromScoreboard(game));
     }
 
     public boolean updateScore(final Game game, final Match match) {
-        return storage.updateScoreboard(game, match);
+        return Objects.nonNull(storage.updateScoreboard(game, match));
     }
 
     public List<Summary> totalSummary() {
