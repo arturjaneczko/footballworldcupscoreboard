@@ -3,6 +3,7 @@ package com.sportradar.fwcsb.service;
 import com.sportradar.fwcsb.domain.game.Game;
 import com.sportradar.fwcsb.domain.game.TeamScore;
 import com.sportradar.fwcsb.domain.game.match.Match;
+import com.sportradar.fwcsb.domain.game.match.Summary;
 import com.sportradar.fwcsb.domain.game.team.AwayTeam;
 import com.sportradar.fwcsb.domain.game.team.HomeTeam;
 import com.sportradar.fwcsb.domain.game.team.Team;
@@ -64,6 +65,34 @@ class ServiceTest {
         service.updateScore(game, match);
         // then
         Mockito.verify(storage).updateScoreboard(game, match);
+    }
+
+    @Test
+    void testTotalSummary() {
+        // given
+        Team mexico = home("Mexico");
+        Team spain = home("Spain");
+        Team germany = home("Germany");
+        Team uruguay = home("Uruguay");
+        Team argentina = home("Argentina");
+
+        Team canada = away("Canada");
+        Team brazil = away("Brazil");
+        Team france = away("France");
+        Team italy = away("Italy");
+        Team australia = away("Australia");
+
+        Match matchA = giveMatch(mexico, 0, canada, 5);
+        Match matchB = giveMatch(spain, 10, brazil, 2);
+        Match matchC = giveMatch(germany, 2, france, 2);
+        Match matchD = giveMatch(uruguay, 6, italy, 6);
+        Match matchE = giveMatch(argentina, 3, australia, 1);
+
+        Summary summaryA = matchA.getSummary();
+        Summary summaryB = matchB.getSummary();
+        Summary summaryC = matchC.getSummary();
+        Summary summaryD = matchD.getSummary();
+        Summary summaryE = matchE.getSummary();
     }
 
     private static Team home(String name) {
