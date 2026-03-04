@@ -1,12 +1,26 @@
 package com.sportradar.fwcsb.domain;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 class BoardTest {
+
+    @InjectMocks
+    private Board board;
+    @Mock
+    private Service service;
 
     @Test
     void testStartGame() {
-        Assertions.assertThat(new Board().startGame()).isTrue();
+        // when
+        board.startGame();
+        // then
+        Mockito.verify(service).startGame();
     }
+
 }
