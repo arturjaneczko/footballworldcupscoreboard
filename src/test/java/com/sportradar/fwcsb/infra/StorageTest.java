@@ -25,4 +25,21 @@ class StorageTest {
         Assertions.assertThat(result).isTrue();
         Assertions.assertThat(storage.getScoreboard()).containsExactly(match);
     }
+
+    @Test
+    void removeFromScoreboardTest() {
+        // given
+        Storage storage = new Storage();
+        Team mexico = new HomeTeam("Mexico");
+        Team canada = new AwayTeam("Canada");
+        Game game = new Game(mexico, canada);
+        Match match = new Match(new TeamScore(mexico, 1), new TeamScore(canada, 1));
+        Assertions.assertThat(storage.updateScoreboard(game, match)).isTrue();
+        Assertions.assertThat(storage.getScoreboard()).contains(match);
+        // when
+        boolean result = storage.removeFromScoreboard(game);
+        // then
+        Assertions.assertThat(storage.getScoreboard()).isEmpty();
+    }
+
 }
