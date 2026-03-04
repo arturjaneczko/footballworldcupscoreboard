@@ -52,12 +52,32 @@ class ServiceTest {
         Mockito.verify(storage).removeFromScoreboard(game);
     }
 
+
+    @Test
+    void testUpdateScore() {
+        // given
+        Team mexico = home("Mexico");
+        Team canada = away("Canada");
+        Game game = new Game(mexico, canada);
+        Match match = giveMatch(mexico, 1, canada, 1);
+        // when
+        service.updateScore(game, match);
+        // then
+        Mockito.verify(storage).updateScoreboard(game, match);
+    }
+
     private static Team home(String name) {
         return new HomeTeam(name);
     }
 
     private static Team away(String name) {
         return new AwayTeam(name);
+    }
+
+    private static Match giveMatch(Team home, int homeScore, Team away, int awayScore) {
+        TeamScore homeTeamScore = new TeamScore(home, homeScore);
+        TeamScore awayTeamScore = new TeamScore(away, awayScore);
+        return new Match(homeTeamScore, awayTeamScore);
     }
 
 }
