@@ -14,6 +14,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 @ExtendWith(MockitoExtension.class)
 class BoardTest {
 
@@ -42,10 +44,12 @@ class BoardTest {
         // given
         Team home = new HomeTeam("Mexico");
         Team away = new AwayTeam("Canada");
+        Game game = new Game(home, away);
+        Mockito.when(service.findGame(home, away)).thenReturn(Optional.of(game));
         // when
         board.finishGame(home, away);
         // then
-        Mockito.verify(service).finishGame();
+        Mockito.verify(service).finishGame(game);
     }
 
     @Test
