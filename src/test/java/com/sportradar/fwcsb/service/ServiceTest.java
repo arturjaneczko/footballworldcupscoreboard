@@ -17,6 +17,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
 @ExtendWith(MockitoExtension.class)
 class ServiceTest {
 
@@ -93,6 +95,10 @@ class ServiceTest {
         Summary summaryC = matchC.getSummary();
         Summary summaryD = matchD.getSummary();
         Summary summaryE = matchE.getSummary();
+        // when
+        List<Summary> result = service.totalSummary();
+        // then
+        Assertions.assertThat(result).containsExactly(summaryD, summaryB, summaryA, summaryE, summaryC);
     }
 
     private static Team home(String name) {

@@ -2,14 +2,18 @@ package com.sportradar.fwcsb.domain.game.match;
 
 import com.sportradar.fwcsb.domain.game.TeamScore;
 
+import java.util.Objects;
+
 public class Match {
 
     private TeamScore home;
     private TeamScore away;
+    private Summary summary;
 
     public Match(final TeamScore home, final TeamScore away) {
         this.home = home;
         this.away = away;
+        this.summary = new Summary(this);
     }
 
     public void updateScore(final TeamScore home, final TeamScore away) {
@@ -23,5 +27,22 @@ public class Match {
 
     public TeamScore getAway() {
         return away;
+    }
+
+    public Summary getSummary() {
+        return summary;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Match match = (Match) o;
+        return home.equals(match.home) && away.equals(match.away);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(home, away);
     }
 }
