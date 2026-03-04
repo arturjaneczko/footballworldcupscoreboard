@@ -30,7 +30,7 @@ public class Service {
     }
 
     public boolean updateScore(final Game game, final Match match) {
-        return false;
+        return storage.updateScoreboard(game, match);
     }
 
     public List<Summary> totalSummary() {
