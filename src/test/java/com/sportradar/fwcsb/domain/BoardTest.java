@@ -4,8 +4,10 @@ import com.sportradar.fwcsb.domain.game.team.AwayTeam;
 import com.sportradar.fwcsb.domain.game.team.HomeTeam;
 import com.sportradar.fwcsb.domain.game.team.Team;
 import com.sportradar.fwcsb.service.Service;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -27,7 +29,11 @@ class BoardTest {
         // when
         board.startGame(home, away);
         // then
-        Mockito.verify(service).startGame();
+        ArgumentCaptor<Game> captor = ArgumentCaptor.forClass(Game.class);
+        Mockito.verify(service).startGame(captor.capture());
+        Game game = captor.getValue();
+        Assertions.assertThat(game.getHomeTeam()).isEqualTo(home);
+        Assertions.assertThat(game.getAwayTeam()).isEqualTo(away);
     }
 
     @Test
