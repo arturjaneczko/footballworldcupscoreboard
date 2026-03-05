@@ -1,5 +1,8 @@
 package com.sportradar.fwcsb.domain.game.match;
 
+import com.sportradar.fwcsb.domain.game.engine.ScoringStrategy;
+import com.sportradar.fwcsb.domain.game.engine.ScoringStrategyDispatcher;
+
 import java.util.Objects;
 
 public class Summary {
@@ -12,15 +15,16 @@ public class Summary {
     }
 
     public int getTotalScore() {
-        return match.getHome().score() + match.getAway().score();
+        ScoringStrategy scoringStrategy = ScoringStrategyDispatcher.scoringStrategy(match.getScoring());
+        return scoringStrategy.getTotalScore(match.getHome(), match.getAway());
     }
 
     @Override
     public String toString() {
         final String homeName = match.getHome().team().getName();
         final String awayName = match.getAway().team().getName();
-        final int homeScore = match.getHome().score();
-        final int awayScore = match.getAway().score();
+        final int homeScore = match.getHome().score().value();
+        final int awayScore = match.getAway().score().value();
         return String.format(PATTERN, homeName, awayName, homeScore, awayScore);
     }
 

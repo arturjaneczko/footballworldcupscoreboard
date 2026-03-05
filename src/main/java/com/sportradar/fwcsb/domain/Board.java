@@ -1,5 +1,6 @@
 package com.sportradar.fwcsb.domain;
 
+import com.sportradar.fwcsb.api.Facade;
 import com.sportradar.fwcsb.domain.game.Game;
 import com.sportradar.fwcsb.domain.game.match.Match;
 import com.sportradar.fwcsb.domain.game.TeamScore;
@@ -11,7 +12,7 @@ import com.sportradar.fwcsb.service.Service;
 import java.util.List;
 import java.util.Optional;
 
-public class Board {
+public class Board implements Facade {
 
     private final Service service;
 
@@ -19,6 +20,7 @@ public class Board {
         this.service = service;
     }
 
+    @Override
     public boolean startGame(final Team home, final Team away) {
         BusinessRuleEngine.checkTeamsOrigin(home, away);
         BusinessRuleEngine.checkIfGameCanBeStarted(service.findGame(home, away), home, away);
@@ -26,6 +28,7 @@ public class Board {
         return service.startGame(new Game(home, away));
     }
 
+    @Override
     public boolean finishGame(final Team home, final Team away) {
         Optional<Game> game = service.findGame(home, away);
 
@@ -34,6 +37,7 @@ public class Board {
         return service.finishGame(game.orElseThrow());
     }
 
+    @Override
     public boolean updateScore(final TeamScore home, final TeamScore away) {
         Optional<Game> game = service.findGame(home.team(), away.team());
         Optional<Match> candidate = game.map(service::getMatch);
@@ -45,7 +49,9 @@ public class Board {
         return service.updateScore(game.orElseThrow(), match);
     }
 
+    @Override
     public List<Summary> totalSummary() {
         return service.totalSummary();
     }
+
 }

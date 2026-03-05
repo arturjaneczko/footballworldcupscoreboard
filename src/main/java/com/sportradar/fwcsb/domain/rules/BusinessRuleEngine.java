@@ -46,8 +46,8 @@ public class BusinessRuleEngine {
     }
 
     private static boolean isNegativeScore(Match match, TeamScore home, TeamScore away) {
-        int homeScore = match.getHome().score() + home.score();
-        int awayScore = match.getAway().score() + away.score();
+        int homeScore = match.getHome().score().value() + home.score().value();
+        int awayScore = match.getAway().score().value() + away.score().value();
         return homeScore < 0 || awayScore < 0;
     }
 

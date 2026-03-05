@@ -1,6 +1,7 @@
 package com.sportradar.fwcsb.domain;
 
 import com.sportradar.fwcsb.domain.game.Game;
+import com.sportradar.fwcsb.domain.game.Score;
 import com.sportradar.fwcsb.domain.game.match.Match;
 import com.sportradar.fwcsb.domain.game.TeamScore;
 import com.sportradar.fwcsb.domain.game.match.Summary;
@@ -95,17 +96,17 @@ class BoardTest {
         // given
         Team home = new HomeTeam("Argentina");
         Team away = new AwayTeam("Australia");
-        TeamScore homeTeamScore = new TeamScore(home, 2);
-        TeamScore awayTeamScore = new TeamScore(away, 1);
+        TeamScore homeTeamScore = new TeamScore(home, new Score(2));
+        TeamScore awayTeamScore = new TeamScore(away, new Score(1));
         Game game = new Game(home, away);
         Mockito.when(service.findGame(home, away)).thenReturn(Optional.of(game));
-        Match match = new Match(new TeamScore(home, 0), new TeamScore(away, 0));
+        Match match = new Match(new TeamScore(home, Score.INITIAL_SCORE), new TeamScore(away, Score.INITIAL_SCORE));
         Mockito.when(service.getMatch(game)).thenReturn(match);
         // when
         board.updateScore(homeTeamScore, awayTeamScore);
         // then
-        Assertions.assertThat(match.getHome().score()).isEqualTo(2);
-        Assertions.assertThat(match.getAway().score()).isEqualTo(1);
+        Assertions.assertThat(match.getHome().score().value()).isEqualTo(2);
+        Assertions.assertThat(match.getAway().score().value()).isEqualTo(1);
         Mockito.verify(service).updateScore(game, match);
     }
 
@@ -114,11 +115,11 @@ class BoardTest {
         // given
         Team home = new HomeTeam("Mexico");
         Team away = new AwayTeam("Canada");
-        TeamScore homeTeamScore = new TeamScore(home, -2);
-        TeamScore awayTeamScore = new TeamScore(away, -1);
+        TeamScore homeTeamScore = new TeamScore(home, new Score(-2));
+        TeamScore awayTeamScore = new TeamScore(away, new Score(-1));
         Game game = new Game(home, away);
         Mockito.when(service.findGame(home, away)).thenReturn(Optional.of(game));
-        Match match = new Match(new TeamScore(home, 0), new TeamScore(away, 0));
+        Match match = new Match(new TeamScore(home, Score.INITIAL_SCORE), new TeamScore(away, Score.INITIAL_SCORE));
         Mockito.when(service.getMatch(game)).thenReturn(match);
         // when
         AbstractThrowableAssert throwableAssert = Assertions.assertThatThrownBy(() -> board.updateScore(homeTeamScore, awayTeamScore));

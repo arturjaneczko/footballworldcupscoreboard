@@ -2,10 +2,12 @@ package com.sportradar.fwcsb.infra;
 
 import com.sportradar.fwcsb.domain.game.Game;
 import com.sportradar.fwcsb.domain.game.match.Match;
+import com.sportradar.fwcsb.domain.game.team.Team;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class Storage {
 
@@ -25,6 +27,12 @@ public class Storage {
 
     public Match getMatch(final Game game) {
         return SCOREBOARD.get(game);
+    }
+
+    public Optional<Game> findGame(final Team home, final Team away) {
+        return SCOREBOARD.keySet().stream()
+                .filter(game -> game.getHomeTeam().equals(home) && game.getAwayTeam().equals(away))
+                .findAny();
     }
 
 }

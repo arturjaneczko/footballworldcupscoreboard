@@ -1,6 +1,7 @@
 package com.sportradar.fwcsb.service;
 
 import com.sportradar.fwcsb.domain.game.Game;
+import com.sportradar.fwcsb.domain.game.Score;
 import com.sportradar.fwcsb.domain.game.TeamScore;
 import com.sportradar.fwcsb.domain.game.match.Match;
 import com.sportradar.fwcsb.domain.game.match.Summary;
@@ -22,8 +23,8 @@ public class Service {
     }
 
     public boolean startGame(final Game game) {
-        TeamScore home = new TeamScore(game.getHomeTeam(), 0);
-        TeamScore away = new TeamScore(game.getAwayTeam(), 0);
+        TeamScore home = new TeamScore(game.getHomeTeam(), Score.INITIAL_SCORE);
+        TeamScore away = new TeamScore(game.getAwayTeam(), Score.INITIAL_SCORE);
         Match match = new Match(home, away);
         return Objects.isNull(storage.updateScoreboard(game, match));
     }
@@ -46,7 +47,7 @@ public class Service {
     }
 
     public Optional<Game> findGame(final Team home, final Team away) {
-        return null;
+        return storage.findGame(home, away);
     }
 
     public Match getMatch(final Game game) {

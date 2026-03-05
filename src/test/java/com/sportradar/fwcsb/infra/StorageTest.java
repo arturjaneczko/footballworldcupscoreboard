@@ -1,6 +1,7 @@
 package com.sportradar.fwcsb.infra;
 
 import com.sportradar.fwcsb.domain.game.Game;
+import com.sportradar.fwcsb.domain.game.Score;
 import com.sportradar.fwcsb.domain.game.TeamScore;
 import com.sportradar.fwcsb.domain.game.match.Match;
 import com.sportradar.fwcsb.domain.game.team.AwayTeam;
@@ -9,6 +10,9 @@ import com.sportradar.fwcsb.domain.game.team.Team;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Collection;
+import java.util.Optional;
 
 class StorageTest {
 
@@ -22,7 +26,7 @@ class StorageTest {
         // given
         Storage storage = new Storage();
         Game game = giveGame();
-        Match match = new Match(new TeamScore(game.getHomeTeam(), 1), new TeamScore(game.getAwayTeam(), 1));
+        Match match = giveMatch(game);
         // when
         Match result = storage.updateScoreboard(game, match);
         // then
@@ -35,7 +39,7 @@ class StorageTest {
         // given
         Storage storage = new Storage();
         Game game = giveGame();
-        Match match = new Match(new TeamScore(game.getHomeTeam(), 1), new TeamScore(game.getAwayTeam(), 1));
+        Match match = giveMatch(game);
         Assertions.assertThat(storage.getScoreboard()).isEmpty();
         Assertions.assertThat(storage.updateScoreboard(game, match)).isNull();
         Assertions.assertThat(storage.getScoreboard()).contains(match);
@@ -46,10 +50,60 @@ class StorageTest {
         Assertions.assertThat(storage.getScoreboard()).isEmpty();
     }
 
+    @Test
+    void getScoreboardTest() {
+        // given
+        Storage storage = new Storage();
+        Game game = giveGame();
+        Match match = giveMatch(game);
+        storage.updateScoreboard(game, match);
+        // when
+        Collection<Match> result = storage.getScoreboard();
+        // then
+        Assertions.assertThat(result).containsExactly(match);
+    }
+
+    @Test
+    void getMatchTest() {
+        // given
+        Storage storage = new Storage();
+        Game game = giveGame();
+        Match match = giveMatch(game);
+        storage.updateScoreboard(game, match);
+        // when
+        Match result = storage.getMatch(game);
+        // then
+        Assertions.assertThat(result).isEqualTo(match);
+    }
+
+    @Test
+    void findGameTest() {
+        // given
+        Storage storage = new Storage();
+        Game game = giveGame();
+        Match match = giveMatch(game);
+        storage.updateScoreboard(game, match);
+        // when
+        Optional<Game> result = storage.findGame(game.getHomeTeam(), game.getAwayTeam());
+        // then
+        Assertions.assertThat(result).isPresent();
+        Assertions.assertThat(result).hasValue(game);
+    }
+
     private static Game giveGame() {
         Team mexico = new HomeTeam("Mexico");
         Team canada = new AwayTeam("Canada");
         return new Game(mexico, canada);
+    }
+
+    private static Match giveMatch(Game game) {
+        TeamScore home = giveTeamScore(game, 1);
+        TeamScore away = giveTeamScore(game, 2);
+        return new Match(home, away);
+    }
+
+    private static TeamScore giveTeamScore(Game game, int score) {
+        return new TeamScore(game.getHomeTeam(), new Score(score));
     }
 
 }
