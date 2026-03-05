@@ -22,4 +22,9 @@ public class Storage {
     public Collection<Match> getScoreboard() {
         return SCOREBOARD.values();
     }
+
+    public Match getMatch(final Game game) {
+        return SCOREBOARD.get(game);
+    }
+
 }

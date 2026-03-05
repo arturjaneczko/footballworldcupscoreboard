@@ -1,7 +1,7 @@
 package com.sportradar.fwcsb.domain.rules.ex;
 
-class NegativeScoreException extends BusinessRuleException {
-    NegativeScoreException() {
+public class NegativeScoreException extends BusinessRuleException {
+    public NegativeScoreException() {
         super("Negative score!");
     }
 }

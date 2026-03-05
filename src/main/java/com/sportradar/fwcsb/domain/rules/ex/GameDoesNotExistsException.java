@@ -1,8 +1,8 @@
 package com.sportradar.fwcsb.domain.rules.ex;
 
-class GameDoesNotExistsException extends BusinessRuleException {
+public class GameDoesNotExistsException extends BusinessRuleException {
 
-    GameDoesNotExistsException() {
+    public GameDoesNotExistsException() {
         super("Game does not exists!");
     }
 }

@@ -50,7 +50,7 @@ public class Service {
     }
 
     public Match getMatch(final Game game) {
-        return null;
+        return storage.getMatch(game);
     }
 
 }
